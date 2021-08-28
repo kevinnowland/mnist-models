@@ -1,0 +1,25 @@
+from setuptools import setup
+
+# make the README into the long description
+from os import path
+this_directory = path.abspath(path.dirname(__file__))
+with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
+
+setup(
+    name="mnist_models",
+    version="0.0.1",
+    description="play with models and mnist data",
+    long_description=long_description,
+    long_description_content_type='text/markdown',
+    url="https://github.com/kevinnowland/mnist-models",
+    author="Kevin Nowland",
+    license="MIT",
+    packages=["mnist_models"],
+    install_requires=[
+        'mnist',
+        'numpy',
+        'scikit-learn',
+    ],
+    zip_safe=False
+)
