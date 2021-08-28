@@ -57,7 +57,7 @@ class LogisticModel(MnistModel):
     """ class for logistic regression model  """
 
     def __init__(self):
-        super().__init__(LogisticRegression())
+        super().__init__(LogisticRegression(max_iter=1000))
 
     def __str__(self):
         return "LogisticModel(is_trained={})".format(self.is_trained)
