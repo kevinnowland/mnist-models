@@ -53,6 +53,30 @@ There are many CI/CD tools in addition to GitHub Actions including Jenkins,
 Travis, Circle CI.
 
 
+## Repository structure
+
+Because this repository is meant to be a python package, we will be
+following a relatively standard way for structuring the directory.
+This includes using a `setup.py` file which tells pip how to install
+this package. In fact, after cloning this repository, you can install
+the package locally from the repository directory by running
+
+```bash
+pip install .
+```
+
+The codebase is mainly contained in the `mnist_models/` directory.
+Unit tests are written in the `tests/` directory and documentation
+is in the `docs/` directory. We also have a `scripts/` diretory 
+where we put scripts that were used to generate the pre-trained
+models. If you want to define commandline tools using the repository
+you would add a `bin/` directory.
+
+A good resource for repository structure is in the 
+[Hitchhiker's Guide to Python](https://docs.python-guide.org/writing/structure/).
+
+
+
 ## Testing
 
 
