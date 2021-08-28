@@ -49,8 +49,16 @@ here, but CD is about very often deploying the changes that are merged into the
 trunk branch. GitHub Actions can also accomplish this deployment process in
 some cases.
 
+In order to use CI, one typically has to define some script that is used by
+the continuous integration software. For GitHub Actions this means creating
+a `.github/workflows/` directory in the repository and definng a workflow
+via a [YAML](https://yaml.org/) file, which is just a structured text file.
+
 There are many CI/CD tools in addition to GitHub Actions including Jenkins,
 Travis, Circle CI.
+
+- [GitHub Actions quicktest](https://docs.github.com/en/actions/quickstart)
+- [Smple workflows](https://github.com/actions/starter-workflows)
 
 
 ## Repository structure
