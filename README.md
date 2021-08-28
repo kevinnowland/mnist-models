@@ -83,6 +83,15 @@ you would add a `bin/` directory.
 A good resource for repository structure is in the 
 [Hitchhiker's Guide to Python](https://docs.python-guide.org/writing/structure/).
 
+Note that we have a `requirements.txt` file which can be used to setup 
+the development environment for this repository. It installs both
+the package dependencies and other useful packages such as 
+`flake8` and `pytest`. To install from it, run
+
+```bash
+pip install -r requirements.txt
+```
+
 
 
 ## Testing
