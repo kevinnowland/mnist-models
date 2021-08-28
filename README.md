@@ -19,6 +19,15 @@ you are reading this, but I added pull request reviews before merging and
 requiring conversation resolution before merging. These are simple protections
 to ensure a small bit of code quality.
 
+## Pull requests
+
+Note that the way this repository is developed is via pull requests (PRs). Code is
+created in a branch which we push up. Then we can request reviews from collaborators
+on the repository. I created an extra account, erdoskevin, which I added as a 
+collaborator in order to demonstrate this feature. You can go back and look at
+closed pull requests to see the fake converations that got added. The first pull
+request is an example of this.
+
 ## Misc
 
 Miscellaneous things to keep in mind
