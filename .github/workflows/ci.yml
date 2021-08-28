@@ -2,7 +2,7 @@
 
 name: GitHub Actions CI
 on:
-  pull_requests:
+  pull_request:
     branches: [ $default_branch ]
 
 jobs:
