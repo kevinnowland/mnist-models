@@ -28,6 +28,65 @@ collaborator in order to demonstrate this feature. You can go back and look at
 closed pull requests to see the fake converations that got added. The first pull
 request is an example of this.
 
+## CI/CD
+
+Continuous integration (CI) is a code quality practice that works to ensure that
+code is always in a usable state for all developers working on the code.
+This typically takes the form of requiring the passage of automated tests. We
+implement CI in two ways, the first is by having unit tests that cover the code
+well so that it is easy to detect breaking changes. This is often hard to do with
+machine learning models, since the model behavior itself is hard to test in this
+way, but we can test other classes and functions. The second way this is
+implemented is that we are using GitHub Actions as a way to build the package
+on servers that GitHub owns. These actions include installing the package, 
+running tests, and "linting" via the flake8 package for style compliance.
+Continuous integration encourages quickly mreging into the repository's
+trunk branch, i.e., into `main` in this case.
+
+A companion to CI is continuous deployment or continuous delivery  (CD),
+and it is common to refer to the two together as CI/CD. This is not implemented
+here, but CD is about very often deploying the changes that are merged into the
+trunk branch. GitHub Actions can also accomplish this deployment process in
+some cases.
+
+There are many CI/CD tools in addition to GitHub Actions including Jenkins,
+Travis, Circle CI.
+
+
+## Testing
+
+
+Testing is accomplished by using the `pytest` package which will
+run the tests in the `tests/`. The modules have `test` in their names
+and the functions it calls also have `test` in their names. We run the
+test from the top level directory of the repo by simply calling `pytest -v`
+where the `-v` stands for verbose, i.e., we want to see all the tests by
+name even if they pass.
+
+A test passing just means that the function call completes without throwing
+any errors. It is common to use assertion errors to check behavior.
+
+
+## Linting
+
+
+Linting is checking code for style. With python this is typically accomplished
+by using the `flake8` package, which will ensure that your code confirms to
+the [PEP8](python.org/dev/peps/pep-0008) standard. This includes things like
+making sure lines are not too long (79 characters, typically) and 
+there is not too much or too litle whitespace in a line or between lines.
+This can seem like overkill, but everyone on a team conforming to a style 
+makes parsing someone else's code, or your own older and half-forgotten code,
+much easier.
+
+Your text editor, if setup properly, might perform this in the background
+for you. I typically use VIM, and the side bar will indicate to me when
+there is a style mistake.
+
+
+## Documenting
+
+
 ## Misc
 
 Miscellaneous things to keep in mind
