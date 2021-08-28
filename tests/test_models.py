@@ -1,6 +1,7 @@
 """ module to test models module  """
 
 import context
+context.init()
 
 import mnist_models.models
 
