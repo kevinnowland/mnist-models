@@ -66,6 +66,24 @@ name even if they pass.
 A test passing just means that the function call completes without throwing
 any errors. It is common to use assertion errors to check behavior.
 
+There are three main types of testing. Unit testing is what we focus on here,
+whereby we test the behavior of individual units of code, trying to test as
+behavior as completely as possible. In extreme cases, one might use 
+test driven development practices whereby one will create mock objects and
+the tests before writing the actual code. While this sounds hard to do, 
+it forces the developper to precisely define classes and their relationships
+early on and prevents blindly diving into the code.
+
+A second type of testing is functional testing, which, in the context of
+a full application, involves testing the desired behavior of the entire
+application. The scope of the testing is coarser than that of unit testing.
+
+Finally, there is regression testing, which is about ensuring proper
+behavior in a multi-application environment. If you are developing App A
+and it is called by (is a dependency of) App B which you might not be
+developing, regression testing is testing that any changes to App A 
+do not cause App B to malfunction.
+
 
 ## Linting
 
