@@ -5,7 +5,6 @@ context.init()
 
 import mnist_models.models as mo
 import mnist_models.data as da
-import numpy as np
 from sklearn.dummy import DummyClassifier
 
 
