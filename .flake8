@@ -1,0 +1,10 @@
+[flake8]
+ignore = E402
+max-line-length = 100
+exclude = 
+  .git
+  .github
+  .gitignore
+  README.md
+  requirements.txt
+  LICENSE
