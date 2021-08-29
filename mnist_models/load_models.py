@@ -1,14 +1,18 @@
 """ module to handle loading of the pretrained models """
 
 import pickle
-import models
+import os
+import sys
+
+sys.path.append(os.path.dirname(__file__))
 
 
 def _load_model(name):
 
-    model_dir = 'pretrained_models/'
+    path = os.path.dirname(__file__)
+    model_path = path + '/pretrained_models/'
 
-    with open(model_dir + name, 'rb') as f:
+    with open(model_path + name, 'rb') as f:
         model = pickle.load(f)
 
     return model
