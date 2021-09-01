@@ -1,4 +1,7 @@
-""" module to interface with the mnist data """
+"""module to interface with the mnist data. In particular, we flatten
+the data into numpy arrays of the form (num_samples, num_features) and
+scale the features to be between 0 and 1.
+"""
 
 import mnist
 import numpy as np

@@ -1,4 +1,7 @@
-""" module of classes holding modles, pretrained or otherwise """
+"""module of classes holding models, pretrained or otherwise. The
+SVMModel and LogisticModel classes do not admit any hyperparameter
+changes, so any change requires using the basic MnistModel class.
+"""
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score

@@ -1,4 +1,5 @@
-""" module to handle loading of the pretrained models """
+"""module to handle loading of the pretrained models.
+"""
 
 import pickle
 import os
