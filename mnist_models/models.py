@@ -3,9 +3,14 @@ SVMModel and LogisticModel classes do not admit any hyperparameter
 changes, so any change requires using the basic MnistModel class.
 """
 
+import numpy as np
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 from sklearn.svm import SVC
+from typing import TypeVar
+
+
+Model = TypeVar('Model')
 
 
 class MnistModel:
@@ -16,7 +21,7 @@ class MnistModel:
     :type: sklearn style model object
     """
 
-    def __init__(self, model):
+    def __init__(self, model: str) -> None:
         """constructor method
         """
         self.__model = model
@@ -24,7 +29,7 @@ class MnistModel:
         self.__is_trained = False
 
     @property
-    def model(self):
+    def model(self) -> Model:
         """the model the class contains
 
         :return: the model
@@ -33,7 +38,7 @@ class MnistModel:
         return self.__model
 
     @property
-    def accuracy(self):
+    def accuracy(self) -> float:
         """accuracy on test set once the model has been fit
 
         :return: test set accuracy
@@ -42,15 +47,16 @@ class MnistModel:
         return self.__accuracy
 
     @property
-    def is_trained(self):
+    def is_trained(self) -> bool:
         """whether the model has been trained or not
 
         :return: whether the model has been trained or not
-        :rtype: boolean
+        :rtype: bool
         """
         return self.__is_trained
 
-    def fit(self, X_train, y_train, X_test, y_test):
+    def fit(self, X_train: np.ndarray, y_train: np.ndarray,
+            X_test: np.ndarray, y_test: np.ndarray) -> None:
         """fit the model and record accuracy from test set."""
 
         if self.model is not None:
@@ -59,7 +65,7 @@ class MnistModel:
             self.__accuracy = accuracy_score(y_test, y_pred)
             self.__is_trained = True
 
-    def predict(self, X):
+    def predict(self, X: np.ndarray) -> np.ndarray:
         """predict with the model
 
         :param X: set to predict on
@@ -75,12 +81,12 @@ class MnistModel:
 class SVMModel(MnistModel):
     """class for the SVM model """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """constructor
         """
         super().__init__(SVC())
 
-    def __str__(self):
+    def __str__(self) -> str:
         """string representation
         """
         return "SVMModel(is_trained={})".format(self.is_trained)
@@ -89,12 +95,12 @@ class SVMModel(MnistModel):
 class LogisticModel(MnistModel):
     """class for logistic regression model  """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """constructor
         """
         super().__init__(LogisticRegression(max_iter=1000))
 
-    def __str__(self):
+    def __str__(self) -> str:
         """string representation
         """
         return "LogisticModel(is_trained={})".format(self.is_trained)

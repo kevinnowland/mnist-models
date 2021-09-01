@@ -7,7 +7,7 @@ import mnist
 import numpy as np
 
 
-def _get_data(train_or_test, digits):
+def _get_data(train_or_test: str, digits: list[int]) -> np.array:
     """helper function called by train_data() and test_data()
 
     :param train_or_test: whether to pull training or test data, must be 'train' or 'test'
@@ -36,7 +36,7 @@ def _get_data(train_or_test, digits):
     return images_reshaped / 255.0, labels
 
 
-def train_data(digits=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]):
+def train_data(digits: list[int] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]):
     """get train data of the specified digis
 
     :param digits: list of digits to include
@@ -47,7 +47,7 @@ def train_data(digits=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]):
     return _get_data('train', digits)
 
 
-def test_data(digits=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]):
+def test_data(digits: list[int] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]):
     """get test data of the specified digis
 
     :param digits: list of digits to include

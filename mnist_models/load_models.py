@@ -4,11 +4,14 @@
 import pickle
 import os
 import sys
+import models as mo
+from typing import Union
+
 
 sys.path.append(os.path.dirname(__file__))
 
 
-def _load_model(name):
+def _load_model(name: str) -> Union[mo.LogisticModel, mo.SVMModel]:
     """helper function to load pickled model files
 
     :param name: name of the model to load, must be one of
@@ -27,7 +30,7 @@ def _load_model(name):
     return model
 
 
-def load_full_logistic():
+def load_full_logistic() -> mo.LogisticModel:
     """load in the logistic model trained on all digits
 
     :return: logistic regression model
@@ -37,7 +40,7 @@ def load_full_logistic():
     return _load_model("logistic_full.pkl")
 
 
-def load_zero_one_logistic():
+def load_zero_one_logistic() -> mo.LogisticModel:
     """load in the logistic model trained on only zeros and ones
 
     :return: logistic regression model
@@ -47,7 +50,7 @@ def load_zero_one_logistic():
     return _load_model("logistic_zero_one.pkl")
 
 
-def load_full_svm():
+def load_full_svm() -> mo.SVMModel:
     """load in the SVM model trained on all digits
 
     :return: SVM classification model
@@ -57,7 +60,7 @@ def load_full_svm():
     return _load_model("svm_full.pkl")
 
 
-def load_zero_one_svm():
+def load_zero_one_svm() -> mo.SVMModel:
     """load in the SVM model trained on only zeros and ones
 
     :return: SVM classification model
