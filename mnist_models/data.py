@@ -5,7 +5,15 @@ import numpy as np
 
 
 def _get_data(train_or_test, digits):
-    """ helper function called by train_data() and test_data() """
+    """helper function called by train_data() and test_data()
+
+    :param train_or_test: whether to pull training or test data, must be 'train' or 'test'
+    :type train_or_test: str
+    :param digits: list of digits to include
+    :type digits: list[int]
+    :return: numpy array of shape (num_samples, num_features)
+    :rtype: numpy.array
+    """
 
     if train_or_test == 'train':
         images_ = mnist.train_images()
@@ -26,10 +34,22 @@ def _get_data(train_or_test, digits):
 
 
 def train_data(digits=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]):
-    """ returns train data """
+    """get train data of the specified digis
+
+    :param digits: list of digits to include
+    :type digits: list[int]
+    :return: numpy array of shape (num_samples, num_features)
+    :rtype: numpy.array
+    """
     return _get_data('train', digits)
 
 
 def test_data(digits=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]):
-    """ returns test data  """
+    """get test data of the specified digis
+
+    :param digits: list of digits to include
+    :type digits: list[int]
+    :return: numpy array of shape (num_samples, num_features)
+    :rtype: numpy.array
+    """
     return _get_data('test', digits)
