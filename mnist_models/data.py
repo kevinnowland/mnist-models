@@ -1,11 +1,23 @@
-""" module to interface with the mnist data """
+"""module to interface with the mnist data. In particular, we flatten
+the data into numpy arrays of the form (num_samples, num_features) and
+scale the features to be between 0 and 1.
+"""
 
 import mnist
 import numpy as np
+from typing import List
 
 
-def _get_data(train_or_test, digits):
-    """ helper function called by train_data() and test_data() """
+def _get_data(train_or_test: str, digits: List[int]) -> np.array:
+    """helper function called by train_data() and test_data()
+
+    :param train_or_test: whether to pull training or test data, must be 'train' or 'test'
+    :type train_or_test: str
+    :param digits: list of digits to include
+    :type digits: list[int]
+    :return: numpy array of shape (num_samples, num_features)
+    :rtype: numpy.array
+    """
 
     if train_or_test == 'train':
         images_ = mnist.train_images()
@@ -25,11 +37,23 @@ def _get_data(train_or_test, digits):
     return images_reshaped / 255.0, labels
 
 
-def train_data(digits=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]):
-    """ returns train data """
+def train_data(digits: List[int] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]):
+    """get train data of the specified digis
+
+    :param digits: list of digits to include
+    :type digits: list[int]
+    :return: numpy array of shape (num_samples, num_features)
+    :rtype: numpy.array
+    """
     return _get_data('train', digits)
 
 
-def test_data(digits=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]):
-    """ returns test data  """
+def test_data(digits: List[int] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]):
+    """get test data of the specified digis
+
+    :param digits: list of digits to include
+    :type digits: list[int]
+    :return: numpy array of shape (num_samples, num_features)
+    :rtype: numpy.array
+    """
     return _get_data('test', digits)

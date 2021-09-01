@@ -9,16 +9,16 @@ PR that adds the template, but is used in subsequen PRs.
 
 # Description
 
-Please include a summary of changes.
+> Please include a summary of changes.
 
 # Risk
 
-Please describe any risks introduced by these changes
-and what could be done to mitigate them.
+> Please describe any risks introduced by these changes
+> and what could be done to mitigate them.
 
 # Testing
 
-Please describe what testing the changes have undergone.
+> Please describe what testing the changes have undergone.
 
 # Checklist
 
