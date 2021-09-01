@@ -7,8 +7,10 @@ Welcome to mnist-models's documentation!
 ========================================
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+  :maxdepth: 2
+  :caption: Contents:
+
+  mnist_models
 
 This is a dummy repository meant to demonstrate some
 coding best practices including how to document code and
