@@ -1,8 +1,5 @@
 """ module to test models module  """
 
-import context
-context.init()
-
 import mnist_models.models as mo
 import mnist_models.data as da
 from sklearn.dummy import DummyClassifier
