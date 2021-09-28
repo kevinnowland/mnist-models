@@ -3,12 +3,9 @@
 
 import pickle
 import os
-import sys
 from typing import Union
 
-sys.path.append(os.path.dirname(__file__))
-
-import models as mo
+from . import models as mo
 
 
 def _load_model(name: str) -> Union[mo.LogisticModel, mo.SVMModel]:

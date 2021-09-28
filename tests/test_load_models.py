@@ -1,8 +1,5 @@
 """ module for testing the data module  """
 
-import context
-context.init()
-
 import mnist_models.load_models as lm
 
 
