@@ -16,8 +16,8 @@ setup(
     author="Kevin Nowland",
     license="MIT",
     packages=["mnist_models"],
-    package_dir=["mnist_models"],
-    package_data={'mnist-models': ['pretrained_models/*pkl']},
+    package_dir={"mnist_models": "mnist_models"},
+    package_data={"mnist_models": ["pretrained_models/*pkl"]},
     install_requires=[
         'mnist>=0.2.2',
         'numpy>=1.21',
