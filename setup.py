@@ -17,9 +17,9 @@ setup(
     license="MIT",
     packages=["mnist_models"],
     install_requires=[
-        'mnist',
-        'numpy',
-        'scikit-learn',
+        'mnist>=0.2.2',
+        'numpy>=1.21',
+        'scikit-learn>=0.24',
     ],
     zip_safe=False
 )
