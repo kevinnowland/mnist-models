@@ -184,6 +184,10 @@ name even if they pass.
 A test passing just means that the function call completes without throwing
 any errors. It is common to use assertion errors to check behavior.
 
+The [coverage](https://coverage.readthedocs.io/en/6.0/) module can be
+used to generate a coverage report that looks to see how much code in
+the repository is hit when tests (or other scripts) are run.
+
 ### Functional tests
 
 A second type of testing is functional testing, which, in the context of
