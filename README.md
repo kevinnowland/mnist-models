@@ -1,9 +1,9 @@
 # MNIST Models
 
-This repository houses a pip-installable package that provides some
+This repository houses a pip-installable package that makes available
 models which are pretrained on MNIST as well as some tools
 that help simplify working with MNIST. The purpose of the 
-repsitory, however, is to demonstrate good habits of writing python
+repository, however, is to demonstrate good habits of writing python
 that can be put into production. Some of what it is demonstrated is
 python specific, but much of what we will point out is true across
 languages.
@@ -13,7 +13,19 @@ to demonstrate their knowledge by linking to their github repository.
 However, it can be underwhelming to see repositories which are collections
 of Jupyter notebooks which are often underdocuented (take advanted of
 Markdown cells to explain what you're doing!) and full of hard to follow
-code.
+code. It can be unclear to the people looking through your repository
+that you can produce code that is ready for production.
+
+The expansive definition of what this repo takes as "production" code
+is code that can be re-used, by someone else, on some other machine.
+It should not rely on quirks of one person's local environment
+to be run and it should be clean enough and well-documented enough
+that someone else should be able to use it. Some examples would 
+be the code that defines an entire application that gets deployed
+on a server, or it can mean a package that is pip installable (as it
+does here), or it can mean a series of useful modules that someone else can
+read and understand. Obviously every team and company will have its
+own definition of what production ready means.
 
 This repository either demonstrates or the README at least talks about
 most of the following topics
@@ -22,7 +34,7 @@ most of the following topics
   - Pull requests
   - Branch protections
   - CI/CD using GitHub Actions
-2. Ensuring functionality with testing and logging
+2. Ensuring functionality with testing
   - Unit testing with pytest
   - Functional tests
   - Regression tests
@@ -32,6 +44,9 @@ most of the following topics
   - Type hints
   - Docstrings
   - Generating documentatoin with sphinx + readthedocs
+4. Hunting for bugs
+  - Printing
+  - Logging
 1. Structuring a repository that is pip installable
 6. Object oriented vs functional programming
 
@@ -189,6 +204,94 @@ and it is called by (is a dependency of) App B which you might not be
 developing, regression testing is testing that any changes to App A 
 do not cause App B to malfunction.
 
+## Style and Documentation
+
+### Linting
+
+Linting is checking code for style. With python this is typically accomplished
+by using the `flake8` package, which will ensure that your code confirms to
+the [PEP8](python.org/dev/peps/pep-0008) standard. This includes things like
+making sure lines are not too long (79 characters, typically) and 
+there is not too much or too litle whitespace in a line or between lines.
+This can seem like overkill, but everyone on a team conforming to a style 
+makes parsing someone else's code, or your own older and half-forgotten code,
+much easier. Linters can also find syntax errors, preventing some bugs before
+code is even run.
+Text editors such as `vim` and IDEs such as `VSCode`, if setup properly, 
+can lint as you write code and can prevent most style and syntax errors
+from being introduced in the first place. In the CI job that referred to
+above, we have a step where linting occurs.
+
+### Documenting
+
+#### Docstrings and comments
+
+This is a bit of stretch, but documenting is also a sort of code style in
+that it's not necessary for code to function, but is about readabilty
+and re-use.
+This project is documented using a combination of docstrings, typehints, and
+the sphinx package. The documentation is actually hosted at readthedocs.org.
+
+Docstrings are the strings written between sets of three double quotemarks
+at the beginnning of modules, functions, and classes. Docstrings are actually
+part of python, and can be accessed via the `help` command. For
+example, if we've run `from models import MnistModel` then we can see the documentation
+that is generated using our docstrings by running `help(mo.MnistModel)`. More
+importantly, docsttrings and leaving many comments is useful for our future
+selves and anyone we collaborate with. It's a truism that writing code is
+easier than reading it, and commenting generously is an enormous step toward
+reducing the gap.
+
+#### Type hints
+
+One feature that makes python easy to use in some situations but complicated in
+others is that python is not strongly types. For example, not only can variables
+changes values after they are initialized, we can initialize a
+variable `x=1` as in `int` and then we can change it to `x='some_string'` with no issues. 
+This is not the case in many languages. 
+However, we can still help our future selves and collaborators by providing
+[type hints](https://docs.python.org/3/library/typing.html), which were
+introduced in python 3.5. In particular, a function definition can be
+written as 
+
+```python
+def foo(x: int, y: str) -> None:
+    x = x + 1
+    print(y)
+```
+
+#### Formal documentation with sphinx
+
+Finally, we can generate html documentation from the docstrings
+and type hints using the `sphinx` package. Most of the files in
+the `docs/` directory were generated by sphinx. Once installed
+we can start the documentation (from the root directory) by
+running `sphinx-quickstart docs`. This brings up a prompt asking
+the developer to make some choices. We stuck with the default options,
+filling in some info about the name of the project as prompted.
+If you  `cd` into the `docs/` directory, there are some files to edit. 
+This includes adding onto the path in `conf.py` and adding some extensions
+in that same file. We also added a separate `requirements.txt` file
+just for sphinx. Finally, we generate documentation by running
+`sphinx-apidoc -f -o . ../mnist_models`. This generates a couple files,
+including `mnist-models.rst` which we have lighlty edited. We also
+added this to the `toctree` part of the `index.rst` file. The command
+also generated a `modules.rst` file which we deleted.
+
+These `.rst'` files are similar to the markdown file that is used
+to generate documentation, typically within the python ecosystem.
+The file extension stands for `reStructuredText`. 
+Here is a [primer](https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html)
+from sphinx.
+
+To publish the documentation, we used [readthedocs.org](readthedocs.org),
+which required signing in with a github account and then adding this
+repository. This is where the secondary `requirements.txt` file 
+becomes necessary. There is also a `.readthedocs` file in the root
+directory of the repo. ReadTheDocs knows how to intepret our 
+documentation and then publishes the resultant html files. This
+is free for open source code.
+
 ## Repository structure
 
 Because this repository is meant to be a python package, we will be
@@ -219,70 +322,6 @@ the package dependencies and other useful packages such as
 ```bash
 pip install -r requirements.txt
 ```
-
-## Linting
-
-
-Linting is checking code for style. With python this is typically accomplished
-by using the `flake8` package, which will ensure that your code confirms to
-the [PEP8](python.org/dev/peps/pep-0008) standard. This includes things like
-making sure lines are not too long (79 characters, typically) and 
-there is not too much or too litle whitespace in a line or between lines.
-This can seem like overkill, but everyone on a team conforming to a style 
-makes parsing someone else's code, or your own older and half-forgotten code,
-much easier.
-
-Your text editor, if setup properly, might perform this in the background
-for you. I typically use VIM, and the side bar will indicate to me when
-there is a style mistake.
-
-
-## Documenting
-
-
-We document this project using a combination of docstrings, typehints, and
-the sphinx package. The documentation is actually hosted at readthedocs.org.
-
-Docustrings are the strings written between sets of three double quotemarks
-at the beginnning of modules, functions, and classes. Docstrings are actually
-part of python, and can be accessed via the `help` command. For
-example, if we've run `import models as mo` then we can see the documentation
-that is generated using our docstrings by running `help(mo.MnistModel)`.
-
-Although python does not require things to be storngly typed, which is why
-we can change a variable `x` from `x=1` to `x='somstring'` with no
-issues, we can still help our future selves and collaborators by providing
-[type hints](https://docs.python.org/3/library/typing.html), which were
-introduced in python 3.5.
-
-Finally, we can generate html documentation from the docstrings
-and typehints using the `sphinx` package. Most of the files in
-the `docs/` directory were generated by sphinx. Once installed
-we can start the documentation (from the root directory) by
-running `sphinx-quickstart docs`. We stuck with the default options,
-filling in some info about the name of the project as prompted.
-Then `cd` into the `docs/` directory. We have to edit some things,
-such as adding onto the path in `conf.py` and adding some extensions
-in that same file. We also added a separate `requirements.txt` file
-just for sphinx. Finally, we generate documentation by running
-`sphinx-apidoc -f -o . ../mnist_models`. This generates a couple files,
-including `mnist-models.rst` which we have lighlty edited. We also
-added this to the `toctree` part of the `index.rst` file. The command
-also generated a `modules.rst` file which we deleted.
-
-These `.rst'` files are similar to the markdown file that is used
-to generate documentation, typically within the python ecosystem.
-The file extension stands for `reStructuredText`. Here is a [primer](https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html)
-from sphinx.
-
-To publish the documentation, I used [readthedocs.org](readthedocs.org),
-which required signing in with my github account and then adding this
-repository. This is where the secondary `requirements.txt` file 
-becomes necessary. I also added a `.readthedocs` file in the root
-directory of the repo. ReadTheDocs knows how to intepret our 
-documentation and then publishes the resultant html files. This
-is free for open source code.
-
 ## Misc
 
 Miscellaneous things to keep in mind
