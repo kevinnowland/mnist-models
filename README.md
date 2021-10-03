@@ -75,6 +75,10 @@ that is in production is written in pure `.py` files which are also much
 easier to review. Notebooks are still very useful in initial modeling
 and exploration, but they are not a method of writing re-usable code.
 
+Style point: when you push changes to a repository, the message should
+be a command as if applying the commit will do what the command says.
+E.g., a commit message should be `fix variable name` not `fixed variable name`.
+
 
 ### Branch protections
 
@@ -134,6 +138,57 @@ Travis, Circle CI.
 - [Smple workflows](https://github.com/actions/starter-workflows)
 
 
+## Testing
+
+### Unit Tests
+
+As we saw above, one of the actions we defined in CI was to run
+tests. In particular, we are running unit tests. These tests are meant
+to test the behavior of individual units of code, where a unit is
+sort of as small as reasonable, usually functions and the
+different pieces grouped together in classes (more about class later).
+IN the extreme, one might attempt to use _test driven development_
+where one attempts to write the tests before the actual code that
+the tests will check. One might mock up empty objects and 
+empty functions so at least imports iwll not fail, and then
+filling in the details the tests will start to pass one by one.
+This attitude reflects the fact that, similar to mathematics, 
+one should have a clear mental model of the objects and how they
+mutate before starting to code up the proper solution.
+
+As mentioned above, unit testing can be somewhat difficult in the
+machine learning setting. In particular, models tend to have random
+intilizations and we don't know exactly what representation is
+learned by the model. However, the pieces that wrap around the model
+and are involved in data processing typically can be unit tested.
+
+Unit testing in python is accomplished by using the `pytest` package which will
+run the tests in the `tests/` folder. The modules have `test` in their names
+and the functions it calls also have `test` in their names. We run the
+tests from the top level directory of the repo by simply calling `pytest -v`
+where the `-v` stands for verbose, i.e., we want to see all the tests by
+name even if they pass.
+A test passing just means that the function call completes without throwing
+any errors. It is common to use assertion errors to check behavior.
+
+### Functional tests
+
+A second type of testing is functional testing, which, in the context of
+a full application, involves testing the desired behavior of the entire
+application. The scope of the testing is coarser than that of unit testing.
+Obviously if all unit tests pass, the functional tests should pass. However,
+this is not necessarily the case as unit tests don't always cover 100%
+of the code. It also might be easier to test larger chunks of code than the 
+smaller chunks, and for that one might use functional tests.
+
+### Regression tests
+
+Finally, there is regression testing, which is about ensuring proper
+behavior in a multi-application environment. If you are developing App A
+and it is called by (is a dependency of) App B which you might not be
+developing, regression testing is testing that any changes to App A 
+do not cause App B to malfunction.
+
 ## Repository structure
 
 Because this repository is meant to be a python package, we will be
@@ -164,40 +219,6 @@ the package dependencies and other useful packages such as
 ```bash
 pip install -r requirements.txt
 ```
-
-
-
-## Testing
-
-
-Testing is accomplished by using the `pytest` package which will
-run the tests in the `tests/`. The modules have `test` in their names
-and the functions it calls also have `test` in their names. We run the
-test from the top level directory of the repo by simply calling `pytest -v`
-where the `-v` stands for verbose, i.e., we want to see all the tests by
-name even if they pass.
-
-A test passing just means that the function call completes without throwing
-any errors. It is common to use assertion errors to check behavior.
-
-There are three main types of testing. Unit testing is what we focus on here,
-whereby we test the behavior of individual units of code, trying to test as
-behavior as completely as possible. In extreme cases, one might use 
-test driven development practices whereby one will create mock objects and
-the tests before writing the actual code. While this sounds hard to do, 
-it forces the developper to precisely define classes and their relationships
-early on and prevents blindly diving into the code.
-
-A second type of testing is functional testing, which, in the context of
-a full application, involves testing the desired behavior of the entire
-application. The scope of the testing is coarser than that of unit testing.
-
-Finally, there is regression testing, which is about ensuring proper
-behavior in a multi-application environment. If you are developing App A
-and it is called by (is a dependency of) App B which you might not be
-developing, regression testing is testing that any changes to App A 
-do not cause App B to malfunction.
-
 
 ## Linting
 
