@@ -56,45 +56,76 @@ The reviewer can add comments pointing out where code might need to be changed
 and asking questions that the developer can resond to. Eventually, the reviewer
 will either approve the PR (LGTM!) or request changes and the developer
 can push futher changes to the feature branch to address the reviewer's concerns.
+After the reviewer approves, the developer can merge the PR and delete their
+feature branch (don't forget to delete local copies of feature branches!).
 
 Note that there is a prepulated template for the PRs in this repository. This
-is provided in the `.github/pull_request_template.md` markdown file.
+is provided in the `.github/pull_request_template.md` markdown file. You can
+put whatever you want into the template, just note that the template does
+not apply to the PR that adds the template itself.
+
+One thing to note is that the reviewer looks at file changes that are
+similar to what is put out by the `git diff` command on the command line.
+Notebooks are not really pure code, so the diffs are very hard to read.
+This has led people to create tools for more effective notebook
+comparison such as `nbdiff` or first converting notebooks to pure
+python via the `jupyter convert` command. However, since notebooks are
+not usable to write packages and cannot be importable as modules, code
+that is in production is written in pure `.py` files which are also much
+easier to review. Notebooks are still very useful in initial modeling
+and exploration, but they are not a method of writing re-usable code.
 
 
 ### Branch protections
 
-If you are browsing this repo on github, note that the first thing I did
-after writing the initial portion of this readme was to click on settings, 
-then branches, and then add some branch protections. There might be more when
-you are reading this, but I added pull request reviews before merging and
-requiring conversation resolution before merging. These are simple protections
-to ensure a small bit of code quality.
+
+What's to stop someone from pushing directly to `main` or merging a pull
+request without a review? The answer is to add _branch proections_ to the
+trunk branch. To protect branches, click on settings, then branches, and 
+then you can add protections based on the format of the branch name.
+This is convenient because your team might provide different protections
+on branches of the form `pr-*` versus `main` versus `red-alert-*`. For
+example, I added protections to require a pull request before merging, 
+require status checks to pass (more on this in the next section), and to
+require conversation resolution.
+
 
 ### CI/CD
 
-Continuous integration (CI) is a code quality practice that works to ensure that
-code is always in a usable state for all developers working on the code.
-This typically takes the form of requiring the passage of automated tests. We
-implement CI in two ways, the first is by having unit tests that cover the code
-well so that it is easy to detect breaking changes. This is often hard to do with
-machine learning models, since the model behavior itself is hard to test in this
-way, but we can test other classes and functions. The second way this is
-implemented is that we are using GitHub Actions as a way to build the package
-on servers that GitHub owns. These actions include installing the package, 
-running tests, and "linting" via the flake8 package for style compliance.
-Continuous integration encourages quickly mreging into the repository's
-trunk branch, i.e., into `main` in this case.
+
+Note that one of the branch protections said that status checks must
+pass. Status checks typically refer to actions that automatically
+check for code quality. Status checks are part of the Continuous Integration (CI)
+practice.
+Continuous integration is the philosophy that we should constantly
+be seeking to implement small changes into the production version of the
+code / the application defined by the code. In CI, implemented changes should
+be as small as possible.
+
+Enabling CI is difficult, how does one ensure that in a multi-developer
+team that changes do not break the code / application? And even if the code
+a developer is propsing works, how do we ensure quality? Obviously the PR 
+is an important step, but it also slows the process down. To speed up 
+the pace of changes in search of "continuous" integration, there is
+usually an automated testing component.
+
+For this repository, we are using GitHub Actions as our CI tool. In
+the parlance of Actions, we have defined a CI workflow via a [YAML](https://yaml.org/) 
+file, which is just a structured text file and placed it in the
+`.github/workflows/` directory. Going over that file, the workflow 
+tells GitHub Actions to pull down this repository, use `pip` to install
+the package that is defined in the repo, check for style using `flake8`, and
+run tests using `pytest`. We will talk more about these last two steps in
+the following sections. Note that all of these actions are occurring not
+on your local machine, but on GitHub's servers! This helps to ensure that
+the code is not working due to some local quirk, but is robust enough
+to be deployed elsewhere.
 
 A companion to CI is continuous deployment or continuous delivery  (CD),
 and it is common to refer to the two together as CI/CD. This is not implemented
 here, but CD is about very often deploying the changes that are merged into the
 trunk branch. GitHub Actions can also accomplish this deployment process in
 some cases.
-
-In order to use CI, one typically has to define some script that is used by
-the continuous integration software. For GitHub Actions this means creating
-a `.github/workflows/` directory in the repository and definng a workflow
-via a [YAML](https://yaml.org/) file, which is just a structured text file.
 
 There are many CI/CD tools in addition to GitHub Actions including Jenkins,
 Travis, Circle CI.
