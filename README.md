@@ -1,16 +1,67 @@
 # MNIST Models
 
-This repository exists to demonstrate the following features:
+This repository houses a pip-installable package that provides some
+models which are pretrained on MNIST as well as some tools
+that help simplify working with MNIST. The purpose of the 
+repsitory, however, is to demonstrate good habits of writing python
+that can be put into production. Some of what it is demonstrated is
+python specific, but much of what we will point out is true across
+languages.
 
-1. Structuring  a repository that is pip installable
-2. Writing docstrings type hints to generate documentation using SOMETHING
-4. Unit testing using pytest
-3. Developing using pythons CI/CD tool Actions
+When trying to transition to a data science career, many people try
+to demonstrate their knowledge by linking to their github repository.
+However, it can be underwhelming to see repositories which are collections
+of Jupyter notebooks which are often underdocuented (take advanted of
+Markdown cells to explain what you're doing!) and full of hard to follow
+code.
 
-The purpose of this repo is to simplify some interactions with MNIST,
-train models on MNIST, and make available some pretrained models.
+This repository either demonstrates or the README at least talks about
+most of the following topics
 
-## Branch protections
+1. Using github to ensure code quality
+  - Pull requests
+  - Branch protections
+  - CI/CD using GitHub Actions
+2. Ensuring functionality with testing and logging
+  - Unit testing with pytest
+  - Functional tests
+  - Regression tests
+  - Logging
+3. Writing documentation and style
+  - Linting with flake8
+  - Type hints
+  - Docstrings
+  - Generating documentatoin with sphinx + readthedocs
+1. Structuring a repository that is pip installable
+6. Object oriented vs functional programming
+
+
+## Using GitHub
+
+Why did `git` win out as the version control system of choice over
+mercurial and SVN, among others? Because GitHub has made collaboration
+dramatically easier. We won't talk about `git` itself too much, but
+instead focus on how GitHub is used to ensure code quality.
+
+### Pull requests
+
+The fundamental workflow when using git is that there is a _trunk branch_ usually
+called `main` (previously `master`) that each developer tracks but that development happens
+on branches other than `main`. These _feature branches_ are then merged into the
+trunk branch. While a single developer can simply merge into the trunk branch
+from the command line, in teams this is typically done via _pull requests_ (PRs).
+
+Upon opening a PR, the developer will ask a teammate to provide a code review.
+The reviewer can add comments pointing out where code might need to be changed
+and asking questions that the developer can resond to. Eventually, the reviewer
+will either approve the PR (LGTM!) or request changes and the developer
+can push futher changes to the feature branch to address the reviewer's concerns.
+
+Note that there is a prepulated template for the PRs in this repository. This
+is provided in the `.github/pull_request_template.md` markdown file.
+
+
+### Branch protections
 
 If you are browsing this repo on github, note that the first thing I did
 after writing the initial portion of this readme was to click on settings, 
@@ -19,16 +70,7 @@ you are reading this, but I added pull request reviews before merging and
 requiring conversation resolution before merging. These are simple protections
 to ensure a small bit of code quality.
 
-## Pull requests
-
-Note that the way this repository is developed is via pull requests (PRs). Code is
-created in a branch which we push up. Then we can request reviews from collaborators
-on the repository. I created an extra account, erdoskevin, which I added as a 
-collaborator in order to demonstrate this feature. You can go back and look at
-closed pull requests to see the fake converations that got added. The first pull
-request is an example of this.
-
-## CI/CD
+### CI/CD
 
 Continuous integration (CI) is a code quality practice that works to ensure that
 code is always in a usable state for all developers working on the code.
