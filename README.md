@@ -324,18 +324,16 @@ watching a video on YouTube to see it in action.
 
 Because this repository is meant to be a python package, we will be
 following a relatively standard way for structuring the directory.
-This includes using a `setup.py` file which tells pip how to install
+This includes using a `setup.py` file which tells `pip` how to install
 this package. In fact, after cloning this repository, you can install
 the package locally from the repository directory by running
-
-```bash
-pip install .
-```
+`pip install .` or install directly from GitHub via
+`pip install git+https://github.com/kevinnowland/mnist-models.git`.
 
 The codebase is mainly contained in the `mnist_models/` directory.
 Unit tests are written in the `tests/` directory and documentation
-is in the `docs/` directory. We also have a `scripts/` diretory 
-where we put scripts that were used to generate the pre-trained
+is in the `docs/` directory. We also have a `scripts/` directory 
+where we put the script that was used to generate the pre-trained
 models. If you want to define commandline tools using the repository
 you would add a `bin/` directory.
 
@@ -350,8 +348,37 @@ the package dependencies and other useful packages such as
 ```bash
 pip install -r requirements.txt
 ```
-## Misc
 
-Miscellaneous things to keep in mind
+Note that the requirements are different from what is needed to 
+install the package. The package dependencies are specified in `setup.py`.
 
-- commit messages should start with a command, e.g., "edit this file" or "fix bad formatting".
+## Object oriented vs functional programming
+
+This is far too big of a topic for one lecture let alone part of
+a lecture, but I want to point out that there are two paradigms
+under which code is written. The first, used here to at least some extent,
+is the _object oriented programming_ (OOP) approach. Very roughly, this means
+package up data along with the functions used to mutate that data. This is
+the dominant paradigm in machine learning. An example is that SciKit-Learn
+packages models into classes which have `fit()` and `predict()` functions.
+The thing to notice is that `fit()` does not create a new object, but 
+modifies the object inline. The key component is that the the data
+associated to an object is mutable and not guaranteed to be constant
+over time.
+
+In contrast, there is _functional programming_, in which objects are assumed
+to be immutable. Instead of defining a model object and calling the
+fit method, one could instead pass the desired model type 
+and the training data to a function which then returns a fitted model which
+can then never change. The rigidity this introduces has many benefits,
+including forcing code to be more explicit about when data changes which
+enables more thorough testing. Bugs can be eaiser to find. However, think of
+deep learning where a neural net undergoes many many rounds of parameter updates.
+It is more intuitively clear to update the model parameters inline after each
+round of backpropogation than to create a new neural net object.
+
+Python does not impose either paradigm, but since everything in python is
+an object (and not a function) it is often treated as an object oriented
+language, even though this is certainly not necessary. Note that python has both
+both lists (mutable) and tuples (immutable). My recommendation is to try to 
+write in a functional way as much as possible.
