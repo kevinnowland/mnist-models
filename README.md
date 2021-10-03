@@ -45,8 +45,6 @@ most of the following topics
   - Docstrings
   - Generating documentatoin with sphinx + readthedocs
 4. Hunting for bugs
-  - Printing
-  - Logging
 1. Structuring a repository that is pip installable
 6. Object oriented vs functional programming
 
@@ -291,6 +289,36 @@ becomes necessary. There is also a `.readthedocs` file in the root
 directory of the repo. ReadTheDocs knows how to intepret our 
 documentation and then publishes the resultant html files. This
 is free for open source code.
+
+
+## Hunting for bugs
+
+Of course, bugs do happen despite our best efforts. So how do we
+diagnose them? Sometimes they are as obvious as listening to
+the error messages that python prints out. Other times the bug
+is behavioral and eludes the tests that have been written (so
+write more tests once it's found!). One way to spot bugs is to
+introduce `print` statements to record what parts of code are
+being encountered and to record values of variables. This is
+obviously great for local development.
+
+More formal than print statements is to use
+[logging](https://docs.python.org/3/library/logging.html). Logging is
+done at different levels ranging from debug (most messages) to critical
+(very few) and includes warnings as well. This allows the the user of
+the code to configure at what level they want to receive messages.
+MAny times, logs are streamed not to standard out but to a file for
+later diagnosis when code is running on a server. I did not implement
+logging in this repository.
+
+Finally, python has a debugging module named
+[pdb](https://docs.python.org/3/library/pdb.html) that works as
+an interactive code debugger. I have not used it, but it works by
+going through your code line by line via the command line, and the
+developper can issue commands between lines to check what the
+script is doing. A script
+can be started by `python -m pdb script.py`. I would recommend
+watching a video on YouTube to see it in action.
 
 ## Repository structure
 
