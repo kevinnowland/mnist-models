@@ -212,7 +212,7 @@ do not cause App B to malfunction.
 
 Linting is checking code for style. With python this is typically accomplished
 by using the `flake8` package, which will ensure that your code confirms to
-the [PEP8](python.org/dev/peps/pep-0008) standard. This includes things like
+the [PEP8](https://python.org/dev/peps/pep-0008) standard. This includes things like
 making sure lines are not too long (79 characters, typically) and 
 there is not too much or too litle whitespace in a line or between lines.
 This can seem like overkill, but everyone on a team conforming to a style 
@@ -286,7 +286,7 @@ The file extension stands for `reStructuredText`.
 Here is a [primer](https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html)
 from sphinx.
 
-To publish the documentation, we used [readthedocs.org](readthedocs.org),
+To publish the documentation, we used [readthedocs.org](https://readthedocs.org),
 which required signing in with a github account and then adding this
 repository. This is where the secondary `requirements.txt` file 
 becomes necessary. There is also a `.readthedocs` file in the root
