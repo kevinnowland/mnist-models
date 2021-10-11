@@ -28,7 +28,7 @@ jobs:
       - name: Linting with flake8
         run: |
           pip install flake8
-          flake8 --show-source --exit-zero
+          flake8 --show-source --exit-zero --ignore=F401
 
       - name: Unit tests with pytest
         run: |
