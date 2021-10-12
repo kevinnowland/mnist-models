@@ -38,7 +38,6 @@ most of the following topics
   - Unit testing with pytest
   - Functional tests
   - Regression tests
-  - Logging
 3. Writing documentation and style
   - Linting with flake8
   - Type hints
@@ -112,7 +111,7 @@ require conversation resolution.
 
 Note that one of the branch protections said that status checks must
 pass. Status checks typically refer to actions that automatically
-check for code quality. Status checks are part of the Continuous Integration (CI)
+check for code quality. Status checks are part of the _Continuous Integration_ (CI)
 practice.
 Continuous integration is the philosophy that we should constantly
 be seeking to implement small changes into the production version of the
@@ -121,7 +120,7 @@ be as small as possible.
 
 Enabling CI is difficult, how does one ensure that in a multi-developer
 team that changes do not break the code / application? And even if the code
-a developer is propsing works, how do we ensure quality? Obviously the PR 
+a developer is proposing works, how do we ensure quality? Obviously the PR 
 is an important step, but it also slows the process down. To speed up 
 the pace of changes in search of "continuous" integration, there is
 usually an automated testing component.
@@ -138,7 +137,7 @@ on your local machine, but on GitHub's servers! This helps to ensure that
 the code is not working due to some local quirk, but is robust enough
 to be deployed elsewhere.
 
-A companion to CI is continuous deployment or continuous delivery  (CD),
+A companion to CI is _Continuous Deployment_ or _Continuous Delivery_  (CD),
 and it is common to refer to the two together as CI/CD. This is not implemented
 here, but CD is about very often deploying the changes that are merged into the
 trunk branch. GitHub Actions can also accomplish this deployment process in
@@ -147,8 +146,8 @@ some cases.
 There are many CI/CD tools in addition to GitHub Actions including Jenkins,
 Travis, Circle CI.
 
-- [GitHub Actions quicktest](https://docs.github.com/en/actions/quickstart)
-- [Smple workflows](https://github.com/actions/starter-workflows)
+- [GitHub Actions quickstart](https://docs.github.com/en/actions/quickstart)
+- [Simple workflows](https://github.com/actions/starter-workflows)
 
 
 ## Testing
@@ -163,7 +162,7 @@ different pieces grouped together in classes (more about class later).
 IN the extreme, one might attempt to use _test driven development_
 where one attempts to write the tests before the actual code that
 the tests will check. One might mock up empty objects and 
-empty functions so at least imports iwll not fail, and then
+empty functions so at least imports will not fail, and then
 filling in the details the tests will start to pass one by one.
 This attitude reflects the fact that, similar to mathematics, 
 one should have a clear mental model of the objects and how they
@@ -196,7 +195,11 @@ application. The scope of the testing is coarser than that of unit testing.
 Obviously if all unit tests pass, the functional tests should pass. However,
 this is not necessarily the case as unit tests don't always cover 100%
 of the code. It also might be easier to test larger chunks of code than the 
-smaller chunks, and for that one might use functional tests.
+smaller chunks, and for that one might use functional tests. This is common
+in machine learning, where the models are black boxes and often changing
+so that strict unit testing is hard. Since functional testing already
+considers the software as a black box, this is sort of a natural fit for
+testing machine learning based software.
 
 ### Regression tests
 
@@ -211,7 +214,7 @@ do not cause App B to malfunction.
 ### Linting
 
 Linting is checking code for style. With python this is typically accomplished
-by using the `flake8` package, which will ensure that your code confirms to
+by using the `flake8` package, which will ensure that your code conforms to
 the [PEP8](https://python.org/dev/peps/pep-0008) standard. This includes things like
 making sure lines are not too long (79 characters, typically) and 
 there is not too much or too litle whitespace in a line or between lines.
@@ -222,7 +225,12 @@ code is even run.
 Text editors such as `vim` and IDEs such as `VSCode`, if setup properly, 
 can lint as you write code and can prevent most style and syntax errors
 from being introduced in the first place. In the CI job that referred to
-above, we have a step where linting occurs.
+above, we have a step where linting occurs, and our options for
+the linter are stored in this repository in `.flake8` file.
+
+Don't miss the forest for the trees, though! Matching style is great, but
+writing understandable code is better. [This talk](https://www.youtube.com/watch?v=wf-BqAjZb8M)
+by Raymond Hettinger emphasizes this point and is worth watching.
 
 ### Documenting
 
@@ -232,14 +240,15 @@ This is a bit of stretch, but documenting is also a sort of code style in
 that it's not necessary for code to function, but is about readabilty
 and re-use.
 This project is documented using a combination of docstrings, typehints, and
-the sphinx package. The documentation is actually hosted at readthedocs.org.
+the sphinx package. The documentation is actually hosted at 
+[readthedocs.org](https://mnist-models.readthedocs.io/en/latest/).
 
 Docstrings are the strings written between sets of three double quotemarks
 at the beginnning of modules, functions, and classes. Docstrings are actually
 part of python, and can be accessed via the `help` command. For
 example, if we've run `from models import MnistModel` then we can see the documentation
 that is generated using our docstrings by running `help(mo.MnistModel)`. More
-importantly, docsttrings and leaving many comments is useful for our future
+importantly, docstrings and leaving many comments is useful for our future
 selves and anyone we collaborate with. It's a truism that writing code is
 easier than reading it, and commenting generously is an enormous step toward
 reducing the gap.
@@ -247,9 +256,9 @@ reducing the gap.
 #### Type hints
 
 One feature that makes python easy to use in some situations but complicated in
-others is that python is not strongly types. For example, not only can variables
+others is that python is not strongly typed. For example, not only can variables
 changes values after they are initialized, we can initialize a
-variable `x=1` as in `int` and then we can change it to `x='some_string'` with no issues. 
+variable `x=1` as an `int` and then we can change it to `x='some_string'` with no issues. 
 This is not the case in many languages. 
 However, we can still help our future selves and collaborators by providing
 [type hints](https://docs.python.org/3/library/typing.html), which were
@@ -280,7 +289,7 @@ including `mnist-models.rst` which we have lighlty edited. We also
 added this to the `toctree` part of the `index.rst` file. The command
 also generated a `modules.rst` file which we deleted.
 
-These `.rst'` files are similar to the markdown file that is used
+These `.rst` files are similar to the markdown file that is used
 to generate documentation, typically within the python ecosystem.
 The file extension stands for `reStructuredText`. 
 Here is a [primer](https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html)
@@ -311,13 +320,13 @@ More formal than print statements is to use
 done at different levels ranging from debug (most messages) to critical
 (very few) and includes warnings as well. This allows the the user of
 the code to configure at what level they want to receive messages.
-MAny times, logs are streamed not to standard out but to a file for
+Many times, logs are streamed not to standard out but to a file for
 later diagnosis when code is running on a server. I did not implement
 logging in this repository.
 
 Finally, python has a debugging module named
 [pdb](https://docs.python.org/3/library/pdb.html) that works as
-an interactive code debugger. I have not used it, but it works by
+an interactive code debugger. It works by
 going through your code line by line via the command line, and the
 developper can issue commands between lines to check what the
 script is doing. A script
@@ -376,7 +385,7 @@ fit method, one could instead pass the desired model type
 and the training data to a function which then returns a fitted model which
 can then never change. The rigidity this introduces has many benefits,
 including forcing code to be more explicit about when data changes which
-enables more thorough testing. Bugs can be eaiser to find. However, think of
+enables more thorough testing. Bugs can be easier to find. However, think of
 deep learning where a neural net undergoes many many rounds of parameter updates.
 It is more intuitively clear to update the model parameters inline after each
 round of backpropogation than to create a new neural net object.
